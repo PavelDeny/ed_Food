@@ -1,21 +1,12 @@
 function calc() {
   const result = document.querySelector(".calculating__result span");
 
-  let sex, height, weight, age, ratio;
+  let sex = localStorage.getItem("sex") || "female";
+  let ratio = localStorage.getItem("ratio") || 1.375;
+  let height, weight, age;
 
-  if (localStorage.getItem("sex")) {
-    sex = localStorage.getItem("sex");
-  } else {
-    sex = "female";
-    localStorage.setItem("sex", "female");
-  }
-
-  if (localStorage.getItem("ratio")) {
-    ratio = localStorage.getItem("ratio");
-  } else {
-    ratio = 1.375;
-    localStorage.setItem("ratio", 1.375);
-  }
+  localStorage.setItem("sex", sex);
+  localStorage.setItem("ratio", ratio);
 
   function calcTotal() {
     if (!sex || !height || !weight || !age || !ratio) {
@@ -62,10 +53,12 @@ function calc() {
       elem.addEventListener("click", (e) => {
         if (e.target.getAttribute("data-ratio")) {
           ratio = +e.target.getAttribute("data-ratio");
-          localStorage.setItem("ratio", +e.target.getAttribute("data-ratio"));
+          // localStorage.setItem("ratio", +e.target.getAttribute("data-ratio"));
+          localStorage.setItem("ratio", ratio);
         } else {
           sex = e.target.getAttribute("id");
-          localStorage.setItem("sex", e.target.getAttribute("id"));
+          // localStorage.setItem("sex", e.target.getAttribute("id"));
+          localStorage.setItem("sex", sex);
         }
 
         elements.forEach((elem) => {

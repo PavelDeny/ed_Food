@@ -20,24 +20,24 @@ function tabs(
   }
 
   function showTabContent(i = 0) {
-    tabsContent[i].classList.add("show", "fade");
-    tabsContent[i].classList.remove("hide");
+    tabsContent[i].classList.replace("hide", "show");
+    tabsContent[i].classList.add("fade");
     tabs[i].classList.add(activeClass);
   }
 
   hideTabContent();
   showTabContent();
 
-  tabsParent.addEventListener("click", function (event) {
-    const target = event.target;
-    if (target && target.classList.contains(tabsSelector.slice(1))) {
-      tabs.forEach((item, i) => {
-        if (target == item) {
-          hideTabContent();
-          showTabContent(i);
-        }
-      });
-    }
+  tabsParent.addEventListener("click", (event) => {
+    const target = event.target.closest(tabsSelector);
+    if (!target) return;
+
+    tabs.forEach((item, i) => {
+      if (target === item) {
+        hideTabContent();
+        showTabContent(i);
+      }
+    });
   });
 }
 
