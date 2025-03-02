@@ -1,21 +1,19 @@
-function closeModal(modalSelector) {
+function toggleModal(modalSelector, isOpen) {
   const modal = document.querySelector(modalSelector);
+  modal.classList.toggle("show", isOpen);
+  modal.classList.toggle("hide", !isOpen);
+  document.body.style.overflow = isOpen ? "hidden" : "";
 
-  modal.classList.add("hide");
-  modal.classList.remove("show");
-  document.body.style.overflow = "";
+  return modal;
+}
+
+function closeModal(modalSelector) {
+  toggleModal(modalSelector, false);
 }
 
 function openModal(modalSelector, modalTimerId) {
-  const modal = document.querySelector(modalSelector);
-
-  modal.classList.add("show");
-  modal.classList.remove("hide");
-  document.body.style.overflow = "hidden";
-
-  if (modalTimerId) {
-    clearInterval(modalTimerId);
-  }
+  const modal = toggleModal(modalSelector, true);
+  if (modalTimerId) clearInterval(modalTimerId);
 }
 
 function modal(triggerSelector, modalSelector, modalTimerId) {
@@ -40,7 +38,7 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 
   function showModalByScroll() {
     if (
-      window.pageYOffset + document.documentElement.clientHeight >=
+      window.innerHeight + window.scrollY >=
       document.documentElement.scrollHeight
     ) {
       openModal(modalSelector, modalTimerId);

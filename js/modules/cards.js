@@ -7,7 +7,8 @@ function cards() {
       this.title = title;
       this.descr = descr;
       this.price = price;
-      this.classes = classes;
+      this.classes = classes.length ? classes : ["menu__item"];
+      //this.classes = classes;
       this.parent = document.querySelector(parentSelector);
       this.transfer = 27;
       this.changeToUAH();
@@ -19,13 +20,14 @@ function cards() {
 
     render() {
       const element = document.createElement("div");
+      element.classList.add(...this.classes);
 
-      if (this.classes.length === 0) {
-        this.classes = "menu__item";
-        element.classList.add(this.classes);
-      } else {
-        this.classes.forEach((className) => element.classList.add(className));
-      }
+      //if (this.classes.length === 0) {
+      //  this.classes = "menu__item";
+      //  element.classList.add(this.classes);
+      //} else {
+      //  this.classes.forEach((className) => element.classList.add(className));
+      //}
 
       element.innerHTML = `
                 <img src=${this.src} alt=${this.alt}>
